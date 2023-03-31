@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BookHotel</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="Confirm_login_password_hint">Confirm Your Password</string>
+    <string name="lorem">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab assumenda ducimus eaque sint, totam ut. Adipisci debitis error, ex excepturi explicabo incidunt libero nam nemo nesciunt perspiciatis quia similique ut.
+    </string>
+
+</resources>
