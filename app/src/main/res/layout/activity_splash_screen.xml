@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00041C"
+    tools:context=".SplashScreen">
+  <View
+
+      android:id="@+id/topview1"
+      android:layout_width="18dp"
+      android:layout_height="120dp"
+      android:layout_alignParentEnd="true"
+      android:layout_marginEnd="20dp"
+      android:background="@color/colorAccent"
+
+
+    />
+  <View
+      android:visibility="invisible"
+      android:id="@+id/topview2"
+      android:layout_toStartOf="@id/topview1"
+      android:layout_width="18dp"
+      android:layout_height="90dp"
+      android:layout_marginEnd="20dp"
+      android:background="#5AB397"
+
+      />
+  <View
+      android:visibility="invisible"
+      android:id="@+id/topview3"
+      android:layout_toStartOf="@id/topview2"
+      android:layout_width="18dp"
+      android:layout_height="60dp"
+      android:layout_marginEnd="20dp"
+      android:background="#AC2732"
+
+      />
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:gravity="center"
+      android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/travelagencylogo"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TRAVEL AGENCY"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+
+        />
+
+    <TextView
+        android:id="@+id/slogantxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="--A.d.v.e.n.t.u.r.e.I.s.C.a.l.l.i.n.g.--"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+
+        />
+  </LinearLayout>
+  
+  <View
+      android:id="@+id/bottomview1"
+      android:layout_width="18dp"
+      android:layout_height="120dp"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="20dp"
+      android:background="@color/colorAccent"
+
+      />
+  <View
+      android:visibility="invisible"
+      android:id="@+id/bottomview2"
+      android:layout_alignParentBottom="true"
+      android:layout_toEndOf="@id/bottomview1"
+      android:layout_width="18dp"
+      android:layout_height="90dp"
+      android:layout_marginStart="20dp"
+      android:background="#5AB397"
+
+      />
+  <View
+      android:visibility="invisible"
+      android:id="@+id/bottomview3"
+      android:layout_toEndOf="@id/bottomview2"
+      android:layout_alignParentBottom="true"
+
+      android:layout_width="18dp"
+      android:layout_height="60dp"
+      android:layout_marginStart="20dp"
+      android:background="#AC2732"
+
+      />
+
+  </RelativeLayout>

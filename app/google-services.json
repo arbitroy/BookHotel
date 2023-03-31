@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "439078529451",
+    "firebase_url": "https://authentication-b1fb2.firebaseio.com",
+    "project_id": "authentication-b1fb2",
+    "storage_bucket": "authentication-b1fb2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439078529451:android:186bad240682e44b01caee",
+        "android_client_info": {
+          "package_name": "com.example.bookhotel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439078529451-9qi9b1fflka1f1ps2pta76ji052n1bbv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzqkWbUXhA-reF3-pUtI8z-fIAxRNDWWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439078529451-9qi9b1fflka1f1ps2pta76ji052n1bbv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439078529451:android:ef48e6cc791ae65601caee",
+        "android_client_info": {
+          "package_name": "com.example.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439078529451-9qi9b1fflka1f1ps2pta76ji052n1bbv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzqkWbUXhA-reF3-pUtI8z-fIAxRNDWWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439078529451-9qi9b1fflka1f1ps2pta76ji052n1bbv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

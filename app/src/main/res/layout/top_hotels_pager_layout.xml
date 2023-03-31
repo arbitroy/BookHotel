@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/top_hotels_card"
+        android:layout_width="280dp"
+        android:layout_height="310dp"
+        android:layout_marginStart="8dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="250dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/top_hotels_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/fourpoints" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/top_hotels_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/lato_black"
+                android:text="The Four, Points Palace"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                app:layout_constraintStart_toStartOf="@+id/cardView2"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/top_hotels_location_icon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/top_hotels_name"
+                app:layout_constraintTop_toBottomOf="@+id/top_hotels_name"
+                app:cardBackgroundColor="@android:color/transparent"
+                android:foreground="@drawable/ic_baseline_location_on_24"
+                android:foregroundTint="@color/black"
+                app:cardElevation="0dp"/>
+
+            <TextView
+                android:id="@+id/top_hotels_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/lato_bold"
+                android:text="Embakasi, 2 Restaurants and Spa"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="@+id/top_hotels_location_icon"
+                app:layout_constraintStart_toEndOf="@+id/top_hotels_location_icon"
+                app:layout_constraintTop_toTopOf="@+id/top_hotels_location_icon" />
+
+            <TextView
+                android:id="@+id/top_hotels_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lato_black"
+                android:text="Ksh 4,000"
+                android:textColor="#1E88E5"
+                android:textSize="21sp"
+                app:layout_constraintStart_toStartOf="@+id/top_hotels_location_icon"
+                app:layout_constraintTop_toBottomOf="@+id/top_hotels_location_icon" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/top_hotels_favourite_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#D81B60"
+                app:cardCornerRadius="48dp"
+                app:cardElevation="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    android:foreground="@drawable/baseline_thumbs_up_down_24"
+                    android:layout_gravity="center"
+                    app:cardElevation="0dp"/>
+
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
