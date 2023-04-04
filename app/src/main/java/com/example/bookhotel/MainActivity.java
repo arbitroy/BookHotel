@@ -1,5 +1,7 @@
 package com.example.bookhotel;
 
+import static android.service.controls.ControlsProviderService.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
@@ -24,13 +27,17 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView tophotels_pager;
     ImageView adminIcon;
-    ArrayList<TopHotelsModel> top_hotels_list;
+    ImageView recom;
+    private DatabaseReference mDatabase;
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         adminIcon = findViewById(R.id.up_page);
+        recom =  findViewById(R.id.recommended);
         Intent intent = getIntent();
         String email = intent.getStringExtra("email");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -58,40 +65,52 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        adminIcon.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        ArrayList<Hotel> top_hotels_list = new ArrayList<>();
+        ValueEventListener postListener = new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                Intent upload = new Intent(MainActivity.this, UploadHotel.class);
-                startActivity(upload);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                top_hotels_list.clear();
+                // Loop through the hotels in the database and add them to the list
+                for (DataSnapshot snapshot : dataSnapshot.child("top_hotels_list").getChildren()) {
+                    String name = snapshot.child("name").getValue(String.class);
+                    String description = snapshot.child("description").getValue(String.class);
+                    String location = snapshot.child("location").getValue(String.class);
+                    String price = snapshot.child("price").getValue(String.class);
+                    ArrayList<String> facilities = (ArrayList<String>) snapshot.child("facilities").getValue();
+                    ArrayList<String> imageURLs = new ArrayList<>();
+                    for (DataSnapshot imageSnapshot : snapshot.child("imageURL").getChildren()) {
+                        String imageName = imageSnapshot.getValue(String.class);
+                        imageURLs.add(imageName);
+                    }
+                    Hotel hotel = new Hotel(name, description, location, price, imageURLs, facilities);
+                    top_hotels_list.add(hotel);
+                }
 
+                // Create and set the adapter after the list has been populated
+                tophotels_pager = findViewById(R.id.top_hotels_pager);
+                TopHotelsAdapter adapter = new TopHotelsAdapter(MainActivity.this, top_hotels_list);
+                LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                MyDecoration decoration = new MyDecoration(30);
+                tophotels_pager.setLayoutManager(manager);
+                tophotels_pager.setAdapter(adapter);
+                tophotels_pager.addItemDecoration(decoration);
             }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "Oopsie", databaseError.toException());
+            }
+        };
+        mDatabase.addValueEventListener(postListener);
+        adminIcon.setOnClickListener(view -> {
+            Intent upload = new Intent(MainActivity.this, UploadHotel.class);
+            startActivity(upload);
         });
-
-
-        top_hotels_list = new ArrayList<>();
-        top_hotels_list.add(new TopHotelsModel("Home INN", "Stay where you want, when you want, and get rewarded", "Flexible Prices", R.drawable.homeimage));
-        top_hotels_list.add(new TopHotelsModel("Villa Rosa Kempinski", "In Westlands\n" +
-                "Nairobi National Park - 23 min drive", "KSH 20,000", R.drawable.villarosakempinski2));
-        top_hotels_list.add(new TopHotelsModel("Bamburi Beach Hotel", "Malindi Road,\n" +
-                "Mombasa,\n" +
-                "Kenya.", "Ksh 10,500", R.drawable.bamburibeachhotel));
-        top_hotels_list.add(new TopHotelsModel("Boma Inn Nairobi", "Near Nairobi National Park", "Ksh 20,200", R.drawable.bomainnnairobi2));
-
-        top_hotels_list.add(new TopHotelsModel("Nairobi Serena Hotel", "The convention centre, Near Uhuru Park", "Ksh 30,800", R.drawable.nairobiserenahotel3));
-        top_hotels_list.add(new TopHotelsModel("Sankara Nairobi", "Luxury hotel in Westlands", "Ksh 20,500", R.drawable.sankaranairobi2));
-        top_hotels_list.add(new TopHotelsModel("Tribe Hotel Nairobi", "Gigiri with outdoor pool and restaurant", "Ksh 20,500", R.drawable.tribehotel));
-        top_hotels_list.add(new TopHotelsModel("The Sarova Stanley", "Luxury Nairobi hotel with full-service spa, connected to the convention centre", "Ksh 10,500", R.drawable.thesarovastanley));
-        top_hotels_list.add(new TopHotelsModel("ibis Styles Nairobi Westlands", "3.5-star hotel with 2 restaurants, near Nairobi National Museum", "Ksh 17,500", R.drawable.ibisstyles));
-        top_hotels_list.add(new TopHotelsModel("Four Points"+"\n"+"By Sheraton Nairobi Airport","4-star hotel in Embakasi with 2 restaurants and spa", "Ksh 21 ,500", R.drawable.fourpoints));
-
-        tophotels_pager = findViewById(R.id.top_hotels_pager);
-
-        TopHotelsAdapter adapter = new TopHotelsAdapter(this, top_hotels_list);
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        MyDecoration decoration = new MyDecoration(30);
-        tophotels_pager.setLayoutManager(manager);
-        tophotels_pager.setAdapter(adapter);
-        tophotels_pager.addItemDecoration(decoration);
 
     }
 

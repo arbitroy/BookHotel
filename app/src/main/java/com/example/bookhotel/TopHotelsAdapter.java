@@ -14,14 +14,16 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class TopHotelsAdapter extends RecyclerView.Adapter<TopHotelsAdapter.ViewHolder> {
 
     Context mycontext;
-    ArrayList<TopHotelsModel> topHotelsModels;
+    ArrayList<Hotel> topHotelsModels;
 
-    public TopHotelsAdapter(Context mycontext, ArrayList<TopHotelsModel> topHotelsModels) {
+    public TopHotelsAdapter(Context mycontext, ArrayList<Hotel> topHotelsModels) {
         this.mycontext = mycontext;
         this.topHotelsModels = topHotelsModels;
     }
@@ -35,23 +37,25 @@ public class TopHotelsAdapter extends RecyclerView.Adapter<TopHotelsAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TopHotelsModel model = topHotelsModels.get(position);
+        Hotel model = topHotelsModels.get(position);
 
         holder.name.setText(model.name);
         holder.location.setText(model.location);
-        holder.price.setText(model.price);
-        holder.image.setImageResource(model.image);
-
-        holder.card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mycontext, DetailsActivity.class);
-                intent.putExtra("tophotelsname", model.getName());
-                intent.putExtra("tophotelslocation", model.getLocation());
-                intent.putExtra("tophotelsprice", model.getPrice());
-                intent.putExtra("tophotelsimage", model.getImage());
-                mycontext.startActivity(intent);
-            }
+        holder.price.setText(" Ksh "+model.price);
+        // Load the image using Glide
+        if (model.imageURL != null && !model.imageURL.isEmpty()) {
+            Picasso.get().load(model.imageURL.get(0)).error(R.drawable.error_image).placeholder(R.drawable.placeholder_image).into(holder.image);
+        } else {
+            holder.image.setImageResource(R.drawable.default_image); // Set a default image if there is no image URL
+        }
+        holder.card.setOnClickListener(view -> {
+            Intent intent = new Intent(mycontext, DetailsActivity.class);
+            intent.putExtra("tophotelsname", model.getName());
+            intent.putExtra("tophoteldesc",model.getDescription());
+            intent.putExtra("tophotelslocation", model.getLocation());
+            intent.putExtra("tophotelsprice", model.getPrice());
+            intent.putExtra("tophotelsimage", model.imageURL.get(0));
+            mycontext.startActivity(intent);
         });
 
     }

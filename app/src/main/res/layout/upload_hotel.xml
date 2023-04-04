@@ -68,6 +68,20 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputHotelLocation"
+                        style="@style/parent"
+                        android:layout_margin="@dimen/loginViewsMargin"
+                        app:boxStrokeColor="@color/yellow">
+
+                        <EditText
+                            android:id="@+id/editTextLocation"
+                            style="@style/modifiedEditText"
+                            android:hint="Location"
+                            android:inputType="textLongMessage"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputHotelPrice"
                         style="@style/parent"
                         android:layout_margin="@dimen/loginViewsMargin"
@@ -76,7 +90,7 @@
                         <EditText
                             android:id="@+id/editTextPrice"
                             style="@style/modifiedEditText"
-                            android:hint="Price"
+                            android:hint="Price per night"
                             android:inputType="text"
                             android:maxLines="1"
                             android:textSize="16sp" />

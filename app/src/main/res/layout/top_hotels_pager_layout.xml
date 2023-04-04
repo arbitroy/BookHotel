@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -89,7 +90,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/top_hotels_favourite_icon"
                 android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_height="47dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="#D81B60"
@@ -101,10 +102,10 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    android:foreground="@drawable/baseline_thumbs_up_down_24"
                     android:layout_gravity="center"
-                    app:cardElevation="0dp"/>
+                    android:foreground="@drawable/baseline_thumbs_up_down_24"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardElevation="0dp" />
 
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>

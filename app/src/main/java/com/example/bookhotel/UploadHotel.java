@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -28,7 +29,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 
 public class UploadHotel extends AppCompatActivity {
-    EditText hotelName,hotelDescription,hotelPrice,hotelFacility;
+    EditText hotelName,hotelDescription,hotelPrice,hotelFacility,hotelLocation;
     ImageSwitcher uploadPicture;
     ImageView previous,next;
     int PICK_IMAGE_MULTIPLE = 1;
@@ -54,6 +55,7 @@ public class UploadHotel extends AppCompatActivity {
         hotelDescription = findViewById(R.id.editTextDescription);
         hotelPrice = findViewById(R.id.editTextPrice);
         hotelFacility = findViewById(R.id.editTextHotelFacilities);
+        hotelLocation = findViewById(R.id.editTextLocation);
         add = findViewById(R.id.addFacility);
         previous = findViewById(R.id.previous);
         next = findViewById(R.id.next);
@@ -109,41 +111,52 @@ public class UploadHotel extends AppCompatActivity {
             String name  = hotelName.getText().toString();
             String desc = hotelDescription.getText().toString();
             String price = hotelPrice.getText().toString();
+            String location = hotelLocation.getText().toString();
             // Create a unique identifier for the hotel
             String hotelId = mDatabase.child("top_hotels_list").push().getKey();
-            // Upload the images to Firebase Storage and store the download URLs in an array list
-            ArrayList<String> imageUrls = new ArrayList<>();
-
+// Upload the images to Firebase Storage and store the download URLs in an array list
+            ArrayList<Task<Uri>> downloadUrlTasks = new ArrayList<>();
             for (Uri imageUri : mImageUris) {
-                StorageReference imageRef = storageRef.child("images").child("image_" + hotelId + "_" + imageUri.getLastPathSegment());
+                StorageReference imageRef = storageRef.child("images").child(hotelId + "_" + imageUri.getLastPathSegment());
                 UploadTask uploadTask = imageRef.putFile(imageUri);
                 Task<Uri> downloadUrlTask = uploadTask.continueWithTask(task -> {
                     if (!task.isSuccessful()) {
                         throw task.getException();
                     }
                     return imageRef.getDownloadUrl();
-                }).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Uri downloadUrl = task.getResult();
-                        imageUrls.add(downloadUrl.toString());
-                    }
                 });
+                downloadUrlTasks.add(downloadUrlTask);
             }
 
+            Tasks.whenAllComplete(downloadUrlTasks).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // All download URL tasks have completed
+                    ArrayList<String> imageUrls = new ArrayList<>();
+                    for (Task<Uri> downloadUrlTask : downloadUrlTasks) {
+                        if (downloadUrlTask.isSuccessful()) {
+                            Uri downloadUrl = downloadUrlTask.getResult();
+                            imageUrls.add(downloadUrl.toString());
+                        } else {
+                            // Handle errors
+                        }
+                    }
 
-                // Create a Hotel object with the hotel details, facilities, and image URLs
-                Hotel hotel = new Hotel(name, desc, price, imageUrls,facilities);
-
-                // Upload the Hotel object to Firebase Realtime Database
-                mDatabase.child("top_hotels_list").child(hotelId).setValue(hotel).addOnSuccessListener(unused -> {
-                    Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
-                }).addOnFailureListener(e -> {
-                    Log.e(TAG, "Error : " + e.getMessage());
-                });
-
+                    // Create a Hotel object with the hotel details, facilities, and image URLs
+                    Hotel hotel = new Hotel(name, desc,location, price, imageUrls,facilities);
+                    // Upload the Hotel object to Firebase Realtime Database
+                    mDatabase.child("top_hotels_list").child(hotelId).setValue(hotel).addOnSuccessListener(unused -> {
+                        Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
+                    }).addOnFailureListener(e -> {
+                        Log.e(TAG, "Error : " + e.getMessage());
+                    });
+                } else {
+                    // Handle errors
+                }
+            });
             hotelName.setText("");
             hotelDescription.setText("");
             hotelPrice.setText("");
+            hotelLocation.setText("");
             mImageUris.clear();
             uploadPicture.removeAllViews();
             facilities.clear();

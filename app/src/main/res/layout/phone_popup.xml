@@ -7,8 +7,8 @@
     android:orientation="vertical"
     android:padding="30dp"
     android:gravity="center"
-    android:background="@color/white"
-    android:outlineAmbientShadowColor="@color/white">
+    android:background="@drawable/pop"
+    android:outlineAmbientShadowColor="@color/black">
 
     <TextView
         android:id="@+id/popup_text"
@@ -25,11 +25,12 @@
         android:id="@+id/phone_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="60dp"
+        android:contentDescription="Phone Number"
         android:ems="10"
         android:inputType="textPersonName"
-        android:contentDescription="Phone Number"
+        android:minHeight="60dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
         tools:layout_editor_absoluteX="128dp"
         tools:layout_editor_absoluteY="189dp" />
 

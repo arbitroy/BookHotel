@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +40,7 @@ import java.net.URL;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    TextView head_name, head_location, name, price, locname;
+    TextView head_name, head_location, name, price, locname,description;
     ImageView image, back;
     Button gmaps;
     PopupWindow popupWindow;
@@ -56,36 +57,30 @@ public class DetailsActivity extends AppCompatActivity {
         price = findViewById(R.id.details_price);
         image = findViewById(R.id.details_image);
         back = findViewById(R.id.details_back);
+        description = findViewById(R.id.description);
         gmaps = findViewById(R.id.button);
 
         String name_position = getIntent().getStringExtra("tophotelsname");
         String location_position = getIntent().getStringExtra("tophotelslocation");
         String price_position = getIntent().getStringExtra("tophotelsprice");
-        int image_position = getIntent().getIntExtra("tophotelsimage",0);
+        String image_position = getIntent().getStringExtra("tophotelsimage");
+        String hotel_desc = getIntent().getStringExtra("tophoteldesc");
 
         head_name.setText(name_position);
         name.setText(name_position);
         head_location.setText(location_position);
-        price.setText(price_position);
-        image.setImageResource(image_position);
+        price.setText("Ksh "+price_position);
+        description.setText(hotel_desc);
+        Picasso.get().load(image_position).into(image);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
-        gmaps.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(view -> finish());
 
-            public void onClick(View view) {
-
-                locname = findViewById(R.id.details_head_name);
-
-                String url = "http://maps.google.com/maps?daddr="+head_name.getText().toString();
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,  Uri.parse(url));
-                startActivity(intent);
-            }
+        gmaps.setOnClickListener(view -> {
+            locname = findViewById(R.id.details_head_name);
+            String url = "http://maps.google.com/maps?daddr="+head_name.getText().toString();
+            Intent intent = new Intent(Intent.ACTION_VIEW,  Uri.parse(url));
+            startActivity(intent);
         });
 
 

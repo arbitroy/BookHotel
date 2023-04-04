@@ -6,14 +6,18 @@ public class Hotel {
     String name;
     ArrayList<String> imageURL;
     String description;
+
+
+    String location;
     String price;
     ArrayList<String> facilities;
 
 
-    public Hotel(String name, String description, String price, ArrayList<String> imageURL, ArrayList<String> facilities) {
+    public Hotel(String name, String description,String location, String price, ArrayList<String> imageURL, ArrayList<String> facilities) {
         this.name = name;
         this.imageURL = imageURL;
         this.description = description;
+        this.location = location;
         this.price = String.valueOf(price);
         this.facilities = facilities;
     }
@@ -33,6 +37,14 @@ public class Hotel {
     public void setImageURL(ArrayList<String> imageURL) {
         this.imageURL = imageURL;
     }
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
 
     public String getDescription() {
         return description;
@@ -54,7 +66,20 @@ public class Hotel {
         return facilities;
     }
 
+
     public void setFacilities(ArrayList<String> facilities) {
         this.facilities = facilities;
+    }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "name='" + name + '\'' +
+                ", imageURL=" + imageURL +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", price='" + price + '\'' +
+                ", facilities=" + facilities +
+                '}';
     }
 }

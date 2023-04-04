@@ -198,7 +198,7 @@
             android:layout_marginTop="40dp"
             android:fontFamily="@font/lato_black"
             android:text="The Leela Palace"
-            android:textColor = "?android:textColorPrimary"
+            android:textColor="?android:textColorPrimary"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="@+id/cardView3"
             app:layout_constraintTop_toBottomOf="@+id/cardView3" />
@@ -223,6 +223,29 @@
             app:layout_constraintTop_toBottomOf="@+id/details_name" />
 
         <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/lato_black"
+            android:text="Description"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/lato"
+            android:text="Description"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/desc"
+            app:layout_constraintTop_toBottomOf="@+id/desc" />
+
+        <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -231,8 +254,8 @@
             android:text="Top Facilities Available"
             android:textColor="?android:textColorPrimary"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/button"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintStart_toStartOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
