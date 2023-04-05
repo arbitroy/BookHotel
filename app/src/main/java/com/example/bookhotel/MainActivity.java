@@ -42,31 +42,6 @@ public class MainActivity extends AppCompatActivity {
         String email = intent.getStringExtra("email");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
         Query query = databaseReference.orderByChild("email").equalTo(email);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                        String role = userSnapshot.child("Role").getValue(String.class);
-                        if (role.equals("Admin")) {
-                            // Show admin features
-
-                            adminIcon.setVisibility(View.VISIBLE);
-                        }
-                    }
-                } else {
-                    Log.d("USER_ROLE", "No role found for email: " + email);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("USER_ROLE", "Failed to get role from Firebase", databaseError.toException());
-            }
-        });
-
-
-
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -110,6 +85,30 @@ public class MainActivity extends AppCompatActivity {
         adminIcon.setOnClickListener(view -> {
             Intent upload = new Intent(MainActivity.this, UploadHotel.class);
             startActivity(upload);
+        });
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        String role = userSnapshot.child("role").getValue(String.class);
+                        if (role != null && role.equals("Admin")) {
+                            System.out.println(role);
+                            // Show admin features
+                            adminIcon.setVisibility(View.VISIBLE);
+                        }else if(role.equals("User")){
+                            adminIcon.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                } else {
+                    Log.d("USER_ROLE", "No role found for email: " + email);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("USER_ROLE", "Database error: " + databaseError.getMessage());
+            }
         });
 
     }

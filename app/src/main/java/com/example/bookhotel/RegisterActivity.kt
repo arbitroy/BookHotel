@@ -54,37 +54,16 @@ class RegisterActivity : AppCompatActivity() {
                     FireBaseAuthentication()
 
 
-
-
-
-
                 } else{
-                    val mToast = Toast.makeText(this@RegisterActivity, "Passwords Do Not Match!!", Toast.LENGTH_LONG)
-                    val myview = mToast.view
-
-//                    myview!!.setBackgroundResource(R.drawable.toast_bg)
-//
-//                    val mToastText = mToast.view!!.findViewById<TextView>(android.R.id.message)
-//
-//                    mToastText.setTextColor(Color.parseColor("#FFFFFF"))
-//
-//                    mToast.show()
+                    val mToast = Toast.makeText(this@RegisterActivity, "Passwords Do Not Match!!", Toast.LENGTH_LONG);
+                    mToast.show()
 
                 }
 
 
             }else{
                 val mToast =  Toast.makeText(this@RegisterActivity, "Empty Inputs are not Allowed!!", Toast.LENGTH_LONG)
-
-                val myview = mToast.view
-
-//                myview!!.setBackgroundResource(R.drawable.toast_bg)
-//
-//                val mToastText = mToast.view!!.findViewById<TextView>(android.R.id.message)
-//
-//                mToastText.setTextColor(Color.parseColor("#FFFFFF"))
-//
-//                mToast.show()
+                mToast.show()
             }
 
         }
@@ -108,7 +87,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 //Code to write to the firebase database
                 database = FirebaseDatabase.getInstance().getReference("Users")
-                val User = User(name,email,phone,password)
+                val User = User(name,email,phone,password,"User")
 
                 database.child(name).setValue(User).addOnSuccessListener {
                     binding.editTextName.text.clear()

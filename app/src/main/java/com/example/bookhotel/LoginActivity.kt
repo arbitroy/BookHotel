@@ -51,19 +51,8 @@ class LoginActivity : AppCompatActivity() {
                             finish()
 
                         } else{
-
-                           // val mToast =  Toast.makeText(this@LoginActivity, it.exception.toString() , Toast.LENGTH_LONG)
-
-
-                       //     val myview = mToast.view
-
-//                            myview!!.setBackgroundResource(R.drawable.toast_bg)
-
-//                            val mToastText = mToast.view!!.findViewById<TextView>(android.R.id.message)
-
-  //                          mToastText.setTextColor(Color.parseColor("#FFFFFF"))
-
-             //               mToast.show()
+                           val mToast =  Toast.makeText(this@LoginActivity, "Email not found \n Please Register" , Toast.LENGTH_LONG)
+                           mToast.show()
 
                         }
                     }
@@ -72,14 +61,6 @@ class LoginActivity : AppCompatActivity() {
             }else{
 
                 val mToast =  Toast.makeText(this@LoginActivity, "Empty Inputs are not Allowed!!", Toast.LENGTH_LONG)
-//               val myview = mToast.view
-
-//                myview!!.setBackgroundResource(R.drawable.toast_bg)
-
-                val mToastText = mToast.view!!.findViewById<TextView>(android.R.id.message)
-
-                mToastText.setTextColor(Color.parseColor("#FFFFFF"))
-
                 mToast.show()
             }
 
